@@ -30,9 +30,9 @@ ECMAScript문서에 작성된 SameValueZero 알고리즘 내용은 다음과 같
 
 > **7.2.9 SameValueZero ( x, y )**
 > The abstract operation SameValueZero takes arguments x (an [ECMAScript language value](https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types)) and y (an [ECMAScript language value](https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types)) and returns a Boolean. It determines whether or not the two arguments are the same value (ignoring the difference between +0𝔽 and -0𝔽).
-
-It performs the following steps when called:
-
+>
+> It performs the following steps when called:
+>
 > 1. If Type(x) is not Type(y), return false.
 > 2. If x is a Number then
 >    1. Return Number::sameValueZero(x,y).
@@ -54,12 +54,13 @@ function sameValueZero(x, y) {
 }
 ```
 
-- ➡️ SameValueNonNumber(x,y)의 핵심로직은 다음과 같다.
-  - x가 null 또는 undefined면 false
-  - x가 BigInt면 BigInt::equal(x,y) 반환값
-  - x가 String이면 x와 y의 길이, 위치별 값이 모두 동일하면 true 아니면 false
-  - x가 Boolean이면, x와 y가 동일하면 true 아니면 false
-  - 이외에 **x is y**면 true 아니면 false
+➡️ SameValueNonNumber(x,y)의 핵심로직은 다음과 같다.
+
+- x가 null 또는 undefined면 false
+- x가 BigInt면 BigInt::equal(x,y) 반환값
+- x가 String이면 x와 y의 길이, 위치별 값이 모두 동일하면 true 아니면 false
+- x가 Boolean이면, x와 y가 동일하면 true 아니면 false
+- 이외에 **x is y**면 true 아니면 false
 
 배열과 배열을 비교한다면, type이 같기 때문에 아래와 같은 규칙을 바탕으로 동일 여부를 판단하게 될 것이다. MDN문서에 기술되어 있는 내용이다. **“동일한 객체를 참조하고 있느냐?”가 핵심**이다. 이를 위해서는 주소값을 비교하게 될 것인데… basket의 [’apple’, 1]과 includes의 searchElement로 넘긴 [’apple’1]은 다른 주소값을 가진다. 따라서 `false`다.
 

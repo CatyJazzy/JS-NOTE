@@ -150,3 +150,5 @@ function isPrime(n) {
 
 - Reference
   [https://ko.javascript.info/function-basics](https://ko.javascript.info/function-basics)
+
+Learning JavaScript Data Structures and Algorithms
