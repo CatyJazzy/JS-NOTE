@@ -62,6 +62,12 @@ function sameValueZero(x, y) {
 - x가 Boolean이면, x와 y가 동일하면 true 아니면 false
 - 이외에 **x is y**면 true 아니면 false
 
+  - x가 null 또는 undefined면 false
+  - x가 BigInt면 BigInt::equal(x,y) 반환값
+  - x가 String이면 x와 y의 길이, 위치별 값이 모두 동일하면 true 아니면 false
+  - x가 Boolean이면, x와 y가 동일하면 true 아니면 false
+  - 이외에 **x is y**면 true 아니면 false
+
 배열과 배열을 비교한다면, type이 같기 때문에 아래와 같은 규칙을 바탕으로 동일 여부를 판단하게 될 것이다. MDN문서에 기술되어 있는 내용이다. **“동일한 객체를 참조하고 있느냐?”가 핵심**이다. 이를 위해서는 주소값을 비교하게 될 것인데… basket의 [’apple’, 1]과 includes의 searchElement로 넘긴 [’apple’1]은 다른 주소값을 가진다. 따라서 `false`다.
 
 1. 피연산자의 형식이 동일한 경우 다음과 같이 비교됩니다.
@@ -74,11 +80,11 @@ function sameValueZero(x, y) {
 
 🔎 **추가적으로 알면 좋은 것**
 
-ECMAScript 사양에서는 두 가지의 종류의 동등 비교에 대해 설명하는 `Identity` 절이 있다. **‘동일성이 없는 값’**이란 고유한 특징만을 가진 값이다. 정수 크기나, 문자열 길이와 같은 특징들을 비교하여 동일한지 판단한다. 이러한 값은 특징만 명시하면 생성할 수 있다.
+ECMAScript 사양에서는 두 가지의 종류의 동등 비교에 대해 설명하는 `Identity` 절이 있다. **동일성이 없는 값**이란 고유한 특징만을 가진 값이다. 정수 크기나, 문자열 길이와 같은 특징들을 비교하여 동일한지 판단한다. 이러한 값은 특징만 명시하면 생성할 수 있다.
 
 ex) undefined, null, boolean, string, BigInt
 
-**‘동일성 있는 값’**은 이와 다르게 고유하며 변경 불가능하고 추측할 수 없는 특징인 ‘동일성’을 가지고 있는 유일한 값이다. 일부 값들은 변경 가능하다. 동일성 있는 값들은 특징만으로 생성할 수 없고, 다른 곳에서 참조를 가져와야 한다.
+**동일성 있는 값**은 이와 다르게 고유하며 변경 불가능하고 추측할 수 없는 특징인 ‘동일성’을 가지고 있는 유일한 값이다. 일부 값들은 변경 가능하다. 동일성 있는 값들은 특징만으로 생성할 수 없고, 다른 곳에서 참조를 가져와야 한다.
 
 ex) [Symbol.for](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/for)에 의해 생성된 심볼 값을 제외한 모든 심볼 값과 객체다. Date, 배열 등
 
